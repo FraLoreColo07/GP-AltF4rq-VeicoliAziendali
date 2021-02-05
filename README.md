@@ -1,3 +1,3 @@
-# GP-Progetto_Secondo_quad
+# GP-AltF4rq-VeicoliAziendali
 
-da definire
+Sviluppo applicazione Java
