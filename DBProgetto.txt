@@ -1,0 +1,5 @@
+Utenti(ID,Nome,Cognome,username,password,dataNascita,cell,IsEsterno)
+Utilizzo(ID,Data,OraIn,OraOut,idUtenti*,TargaAuto*)//subito al momento
+Auto(TARGA,modello,marca,DataAcquisto,DataRevisione,idUtenti*)
+Prenotazione(ID,Data,OraIn,idUtenti*,TargaAuto*)//nel futuro
+Admin(ID,username,password)
