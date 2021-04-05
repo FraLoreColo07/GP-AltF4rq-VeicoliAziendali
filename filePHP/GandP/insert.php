@@ -73,14 +73,14 @@
 				
 				$sql = "INSERT INTO ".$table." (IDUtilizzo,data,oraIn,oraOut,IDUtente,TargaAuto) VALUES ('".$idUtilizzo."','".$data."','".$oraIn."','".$oraOut."','".$idUtente."','".$targa."')";
 				
-			if($conn->query($sql) === TRUE) {
+				if($conn->query($sql) === TRUE) {
+					
+					echo "ok";
 				
-				echo "ok";
-			
-			} else {
-				echo "Error: " . $sql . "<br>" . $conn->error;
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
 			}
-			
 		}else if($_GET["table"] == "altf4_prenotazione"){
 			
 			if(isset($_GET["idUtente"]) && isset($_GET["targaAuto"]) && isset($_GET["oraIn"]) && isset($_GET["data"])){
@@ -95,14 +95,14 @@
 				
 				$sql = "INSERT INTO ".$table." (IDUtente,targaAuto,data,oraIn) VALUES ('".$idUtente."','".$targa."','".$data."','".$oraIn."')";
 				
-			if($conn->query($sql) === TRUE) {
+				if($conn->query($sql) === TRUE) {
+					
+					echo "ok";
 				
-				echo "ok";
-			
-			} else {
-				echo "Error: " . $sql . "<br>" . $conn->error;
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
 			}
-			
 		}else if($_GET["table"] == "altf4_auto"){
 			
 			if(isset($_GET["targaAuto"]) && isset($_GET["modello"]) && isset($_GET["marca"]) && isset($_GET["dataAcquisto"]) && isset($_GET["dataRevisione"])){
@@ -118,14 +118,14 @@
 				
 				$sql = "INSERT INTO ".$table." (TARGA,modello,marca,dataAcquisto,dataRevisione) VALUES ('".$targa."','".$modello."','".$marca."','".$dataAcquisto."','".$dataRevisione."')";
 				
-			if($conn->query($sql) === TRUE) {
+				if($conn->query($sql) === TRUE) {
+					
+					echo "ok";
 				
-				echo "ok";
-			
-			} else {
-				echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-			
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+			}	
 		}else if($_POST["table"] == "altf4_admin"){
 			
 			if(isset($_POST["username"]) && isset($_POST["password"])){
