@@ -34,7 +34,7 @@
 				$nome = $_POST["nome"];
 				$cognome = $_POST["cognome"];
 				$username = $_POST["username"];
-				$password = $_POST["password"];
+				$password = MD5($_POST["password"]);
 				$dataNascita = $_POST["dataNascita"];
 				$cell = $_POST["cell"];
 				$isEsterno = $_POST["isEsterno"];
@@ -131,7 +131,7 @@
 			if(isset($_POST["username"]) && isset($_POST["password"])){
 				
 				$username = $_POST["username"];
-				$password = $_POST["password"];
+				$password = MD5($_POST["password"]);
 				
 				$table = $_POST["table"];
 				
