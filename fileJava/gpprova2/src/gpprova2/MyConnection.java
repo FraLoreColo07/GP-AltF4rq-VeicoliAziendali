@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  *
- * @author Fabio
+ * @author Francesco
  */
 public class MyConnection {
     private final HttpClient httpClient = HttpClient.newBuilder()
