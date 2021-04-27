@@ -23,9 +23,10 @@ public class formLogin extends javax.swing.JDialog {
     /**
      * Creates new form formLogin
      */
-    int i=0;
-    main m = null;
-    MyConnection conn = new MyConnection();
+   // int i=0;
+    private main m = null;
+    public String user="";
+    private MyConnection conn = new MyConnection();
     public formLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -171,6 +172,9 @@ public class formLogin extends javax.swing.JDialog {
             }
 
             if("utente-verificato".equals(msg)){
+                textUsername.setText("");
+                textPassword.setText("");
+                user = username;
                 this.setVisible(false);
             }else if("utente-nonverificato".equals(msg))
                 textLog.setText("errore");
@@ -185,10 +189,12 @@ public class formLogin extends javax.swing.JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-         i=1;
-         
-         if(m != null)
-            m.setVisible(false);
+         if(m != null){
+             
+             this.dispose();
+             this.setVisible(false);
+             System.exit(0);
+         }
          this.setVisible(false);
          
     }//GEN-LAST:event_formWindowClosing
@@ -196,9 +202,7 @@ public class formLogin extends javax.swing.JDialog {
     private void comboValoriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboValoriActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboValoriActionPerformed
-    public int getI(){
-        return i;
-    }
+
     
     public void setData(Object main){
         
