@@ -1,5 +1,7 @@
+package com.mycompany.flos.veicolimavenproject.form;
 
 import com.mycompany.flos.veicolimavenproject.form.MyConnection;
+import com.mycompany.flos.veicolimavenproject.form.MyQuery;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,9 +26,9 @@ public class formLogin extends javax.swing.JDialog {
      * Creates new form formLogin
      */
    // int i=0;
-    private main m = null;
+    private main m;
     public String user="";
-    private MyConnection conn = new MyConnection();
+    private MyQuery query = new MyQuery();
     public formLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -53,6 +55,7 @@ public class formLogin extends javax.swing.JDialog {
         comboValori = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Flos-Login");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -134,48 +137,20 @@ public class formLogin extends javax.swing.JDialog {
         // TODO add your handling code here:
         if(comboValori.getSelectedItem()!= "..."){
             
-            String username = textUsername.getText();
-            String password = textPassword.getText();
-
-            Map<Object, Object> data = new HashMap<>();
-
-                if(comboValori.getSelectedItem()== "Utenti")
-                    data.put("tab","altf4_utenti");
-                else if(comboValori.getSelectedItem()== "Amministratore")
-                     data.put("tab","altf4_admin");
-                data.put("username", username);
-
-                MessageDigest md = null;
-            try {
-                md = MessageDigest.getInstance("MD5");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(formLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                byte[] messageDigest = md.digest(password.getBytes());
-                BigInteger no = new BigInteger(1, messageDigest);
-
-                // Convert message digest into hex value
-                String hashtext = no.toString(16);
-                while (hashtext.length() < 32) {
-                    hashtext = "0" + hashtext;
-                }
-
-                data.put("password", hashtext);
-
-                String url = "http://altf4rq.altervista.org/chkLogin.php";
-
-                String msg = "";
-            try {
-                 msg = conn.sendPost(url, "ricevimento", data);
-            } catch (Exception ex) {
-                Logger.getLogger(formLogin.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            if("utente-verificato".equals(msg)){
+            String msg = query.chkLogin(textUsername.getText(), textPassword.getText(), (String)comboValori.getSelectedItem());
+            
+            if(!"utente-nonverificato".equals(msg)){
                 textUsername.setText("");
                 textPassword.setText("");
-                user = username;
-                this.setVisible(false);
+                if(comboValori.getSelectedItem() == "Amministratore"){
+                    
+                    //m.setVisible(false);
+                }else if(comboValori.getSelectedItem() == "Utente"){
+                    user = msg;
+                    this.setVisible(false);
+                    if(m.isCloseSession() == true)
+                        m.reload();
+                }
             }else if("utente-nonverificato".equals(msg))
                 textLog.setText("errore");
             }
@@ -189,13 +164,11 @@ public class formLogin extends javax.swing.JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-         if(m != null){
-             
-             this.dispose();
-             this.setVisible(false);
-             System.exit(0);
-         }
-         this.setVisible(false);
+         
+        this.setVisible(false);
+        m.dispose();
+        m.setVisible(false);
+        System.exit(0);
          
     }//GEN-LAST:event_formWindowClosing
 

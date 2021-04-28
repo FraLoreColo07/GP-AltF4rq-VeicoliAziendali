@@ -1,5 +1,11 @@
+package com.mycompany.flos.veicolimavenproject.form;
 
+import com.mycompany.flos.veicolimavenproject.form.MyQuery;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,14 +22,16 @@ public class main extends javax.swing.JFrame {
     /**
      * Creates new form main
      */
-    int i=0;
-    formLogin dialog = new formLogin(new javax.swing.JFrame(), true);
+    private formLogin dialog = new formLogin(new javax.swing.JFrame(), true);
+    private ArrayList<Utilizzo> listUtilizzi;
+    private DefaultTableModel tbUtilizzo = new DefaultTableModel();
+    private boolean close;
     public main() {
         initComponents();
-        dialog.setVisible(true);
         dialog.setData(this);
-        labelUtente.setText(dialog.user);
-        
+        dialog.setVisible(true);
+        close = false;
+        generaDati(dialog.user);
        
 
     }
@@ -52,20 +60,30 @@ public class main extends javax.swing.JFrame {
         buttonPre = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableUtilizzi = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Flos-Veicoli");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
 
-        jLabel1.setText("Benvenut");
+        jTabbedPane2.setEnabled(false);
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 102));
+
+        jPanel3.setBackground(new java.awt.Color(255, 153, 51));
+
+        jLabel1.setText("Benvenutǝ");
 
         buttonUtente.setText("Profilo");
 
@@ -75,7 +93,7 @@ public class main extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -123,51 +141,66 @@ public class main extends javax.swing.JFrame {
                 .addComponent(buttonUsa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonPre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
                 .addComponent(buttonEsci)
                 .addGap(83, 83, 83))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel5.setBackground(new java.awt.Color(255, 204, 102));
+
+        tableUtilizzi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, ""},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Destinazione", "OraIn", "OraOut"
             }
         ));
-        jTable2.setCellSelectionEnabled(true);
-        jTable2.setEnabled(false);
-        jScrollPane3.setViewportView(jTable2);
-        jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tableUtilizzi.setCellSelectionEnabled(true);
+        tableUtilizzi.setEnabled(false);
+        jScrollPane3.setViewportView(tableUtilizzi);
+        tableUtilizzi.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jLabel3.setText("Task aperte:");
+        jLabel3.setText("Utilizzi:");
+
+        jLabel2.setText("Prenotazioni:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.setEnabled(false);
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(193, 193, 193))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,11 +222,11 @@ public class main extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -229,16 +262,72 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
+        
+   
          
     }//GEN-LAST:event_formWindowActivated
 
     private void buttonEsciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEsciActionPerformed
         // TODO add your handling code here:
-
+        
+        int rowCount = tbUtilizzo.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            tbUtilizzo.removeRow(i);
+        }
+        close = true;
         dialog.setVisible(true);
+        
     }//GEN-LAST:event_buttonEsciActionPerformed
-   /**
+    
+    public boolean isCloseSession(){
+    
+        return close;
+    }
+    
+    public void reload(){
+    
+        generaDati(dialog.user);
+        this.setVisible(true);
+    }
+    public void generaDati(String id){
+        
+        MyQuery query = new MyQuery();
+        listUtilizzi = new ArrayList<Utilizzo>();
+        labelUtente.setText(id);
+        System.out.println(id);
+        String dati = query.getData(id,"altf4_utilizzo");
+        String[] list = dati.split(";");
+        
+        if(list.length>0 && !"".equals(list[0])){
+            
+            for(int i = 0; i<list.length;i++){
+        
+                String[] values = list[i].split(",");
+                Date data = Date.valueOf(values[1]);
+                Time oraIn = Time.valueOf(values[2]);
+                Time oraOut = Time.valueOf(values[3]);
+                listUtilizzi.add(new Utilizzo(values[0],data,oraIn,oraOut,values[4],values[5]));
+            }
+        }
+        
+        if(listUtilizzi.size()>0){
+            
+            
+            System.out.println("si");
+            String header[] = new String[] { "ID", "Destinazione", "oraIn","oraOut"};
+            tbUtilizzo.setColumnIdentifiers(header);
+            tableUtilizzi.setModel(tbUtilizzo);
+            for(int i = 0;i<listUtilizzi.size();i++){
+                
+                tbUtilizzo.addRow(new Object[]{listUtilizzi.get(i).getID(), listUtilizzi.get(i).getID(), listUtilizzi.get(i).getOraIn(),listUtilizzi.get(i).getOraOut()});
+                
+            }
+            
+        }
+        
+       
+    }
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -281,6 +370,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton buttonUtente;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -288,10 +378,12 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelUtente;
+    private javax.swing.JTable tableUtilizzi;
     // End of variables declaration//GEN-END:variables
 }

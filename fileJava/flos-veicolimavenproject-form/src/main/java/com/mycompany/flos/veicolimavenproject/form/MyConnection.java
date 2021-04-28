@@ -32,14 +32,14 @@ public class MyConnection {
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-        Integer result = response.statusCode();
+        //Integer result = response.statusCode();
         // print status code
-        String ris = result.toString() +"|";
+        //String ris = result.toString() +"|";
 
         String body = response.body();
         // print response body
-        ris += body;
-        return ris;
+        //ris += body;
+        return body;
     }
     
     public String sendPost(String uriToSend, String agentToSend, Map<Object, Object>data) throws Exception {
@@ -75,9 +75,9 @@ public class MyConnection {
             builder.append("=");
             builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
         }
-        System.out.println("\nRETUN HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data)\n-----------------");
-        System.out.println(builder.toString());
-        System.out.println("-----------------");
+        //System.out.println("\nRETUN HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data)\n-----------------");
+        //System.out.println(builder.toString());
+        //System.out.println("-----------------");
         return HttpRequest.BodyPublishers.ofString(builder.toString());
     }
 }
